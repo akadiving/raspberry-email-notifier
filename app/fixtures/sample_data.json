@@ -1,0 +1,14 @@
+[
+    {
+        "mail": "akoivanishvili6@gmail.com",
+        "model": ["RPi 4 Model B - 4GB RAM", "Raspberry Pi Zero 2", "RPi 4 Model B - 4GB RAM"],
+        "region": ["US", "UK"],
+        "last_sent": "2022-04-13 14:43:35.542195"
+    },
+    {
+        "mail": "akoivanishvili6@gmail.com",
+        "model": ["RPi 4 Model B - 4GB RAM"],
+        "region": ["DE"],
+        "last_sent": "2022-04-14 14:43:35.542195"
+    }
+]

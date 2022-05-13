@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  web:
+    container_name: raspberry_notifier_fastapi
+    build: ./app
+    command: "uvicorn main:app --host 0.0.0.0"
+    volumes:
+      - ./app:/code/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    ports:
+      - '80:8000'
+    depends_on:
+      - redis
+
+  celery:
+    build: ./app
+    container_name: raspberry_notifier_celery
+    command: celery -A tasks.celery worker --loglevel=info --logfile=logs/celery_logs/celery.log
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    volumes:
+      - ./app:/code/app
+    depends_on:
+      - web
+      - redis
+
+  dashboard:
+    build: ./app
+    container_name: raspberry_notifier_celery_dashboard
+    command: celery --broker=redis://redis:6379/0 flower --port=5555
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+      - celery
+
+  redis:
+    image: "redis:alpine"
+    container_name: raspberry_notifier_redis
+    restart: on-failure
+    command: redis-server
+    ports:
+     - "6379:6379"
