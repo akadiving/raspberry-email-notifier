@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 async def get_all_pi():
-    data = json.load(open("fixtures/sample_data.json", "r"))
+    data = json.load(open("app/fixtures/sample_data.json", "r"))
     task = send_json.delay(data=data, max=3)
     return JSONResponse(content=task.id)
 

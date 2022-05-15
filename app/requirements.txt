@@ -50,3 +50,4 @@ watchgod==0.8.2
 wcwidth==0.2.5
 websockets==10.3
 wrapt==1.14.1
+pytest==7.1.2

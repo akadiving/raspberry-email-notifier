@@ -78,6 +78,7 @@ db.*
 *.sqlite3
 log/
 media/
+*.pytest_cache
 
 # Celery
 celerybeat-schedule
